@@ -1,0 +1,532 @@
+/* =========================================================
+   Global — reset, base, layout, sidebar, splash, mobile nav
+   ========================================================= */
+
+@import url("variables.css");
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Smooth scroll obsługiwany przez Lenis (animations.js), nie natywnie. */
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Lenis — wymagane style runtime */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  /* Subtelna tekstura grid/noise na tle (efekt papierowy/typograficzny) */
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: -1px -1px;
+  transition: background-color var(--dur-fast) ease, color var(--dur-fast) ease;
+  /* clip (nie hidden) — nie tworzy kontekstu scrolla, nie psuje position:sticky */
+  overflow-x: clip;
+  /* Miejsce na sidebar po prawej */
+  padding-right: var(--sidebar-w);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------- Typografia bazowa ---------- */
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  line-height: var(--lh-tight);
+  font-weight: 600;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  letter-spacing: var(--ls-mono);
+}
+
+/* ---------- Layout container ---------- */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--content-pad);
+}
+
+main {
+  position: relative;
+  z-index: 2;
+}
+
+/* Sekcje */
+.section {
+  position: relative;
+  padding-block: var(--section-gap);
+  scroll-margin-top: 2rem;
+}
+
+/* Nagłówek sekcji (kicker + tytuł) — style w sections.css */
+
+/* =========================================================
+   PRAWY SIDEBAR (element charakterystyczny) — tylko tekst
+   ========================================================= */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: var(--sidebar-w);
+  height: 100vh;
+  z-index: var(--z-sidebar);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-block: 1.5rem;
+  background: color-mix(in srgb, var(--bg-primary) 75%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-left: 1px solid var(--border);
+}
+
+/* Wskaźnik postępu scrollu — cienka linia na lewej krawędzi */
+.sidebar__progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 0%;
+  background: var(--accent);
+  transition: height 80ms linear;
+}
+
+/* Logo / inicjały na górze */
+.sidebar__brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+/* Lista pozycji nav — wyśrodkowana w pionie */
+.sidebar__nav {
+  margin: auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Etykieta tekstowa — pozioma, wyśrodkowana */
+.sidebar__link {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.2;
+  color: var(--nav-muted);
+  padding: 0.6rem 0.4rem;
+  transition: color var(--dur-fast) var(--ease-spring),
+    transform var(--dur-fast) var(--ease-spring);
+}
+
+.sidebar__link:hover {
+  color: var(--text-primary);
+  transform: translateX(-2px);
+}
+
+.sidebar__link.is-active {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* =========================================================
+   TOP CONTROLS — pill container (PL/EN + dark/light)
+   ========================================================= */
+.top-controls {
+  position: fixed;
+  top: 1.25rem;
+  right: calc(var(--sidebar-w) + 0.75rem);
+  z-index: var(--z-mobilenav);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.control-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+  padding: 0.2rem 0.35rem;
+  background: color-mix(in srgb, var(--bg-secondary) 85%, transparent);
+  border: 1px solid rgba(43, 168, 74, 0.25);
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.ctrl-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--nav-muted);
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  transition: background-color var(--dur-fast) ease, color var(--dur-fast) ease;
+}
+
+.ctrl-btn.is-active {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.ctrl-btn:hover:not(.is-active) {
+  color: var(--text-primary);
+}
+
+.ctrl-sep {
+  width: 1px;
+  height: 12px;
+  background: var(--border-strong);
+}
+
+/* Pigułka motywu (ikony słońce/księżyc) */
+.theme-pill {
+  padding: 0.35rem 0.6rem;
+  color: var(--text-secondary);
+}
+
+.theme-pill:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.theme-pill .theme-icon {
+  display: flex;
+  align-items: center;
+  color: currentColor;
+}
+
+/* Ikona reprezentuje AKTUALNY motyw */
+[data-theme="light"] .theme-icon.sun {
+  display: flex;
+}
+[data-theme="light"] .theme-icon.moon {
+  display: none;
+}
+[data-theme="dark"] .theme-icon.sun {
+  display: none;
+}
+[data-theme="dark"] .theme-icon.moon {
+  display: flex;
+}
+
+/* Na mobile top-controls przesuwa się do samej krawędzi (sidebar ukryty) */
+@media (max-width: 768px) {
+  .top-controls {
+    right: 1rem;
+  }
+}
+
+/* =========================================================
+   SPLASH SCREEN (page load)
+   ========================================================= */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-splash);
+  display: grid;
+  place-items: center;
+  background: var(--ink-black);
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.splash.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.splash__mark {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 700;
+  color: var(--porcelain);
+  letter-spacing: 0.05em;
+  opacity: 0;
+  animation: splash-in 0.8s var(--ease-spring) forwards;
+}
+
+@keyframes splash-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    letter-spacing: 0.3em;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: 0.05em;
+  }
+}
+
+/* =========================================================
+   CURSOR GLOW (desktop)
+   ========================================================= */
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: var(--z-glow);
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, var(--glow-color) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+/* =========================================================
+   MOBILE NAV (bottom bar) — domyślnie ukryta
+   ========================================================= */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-mobilenav);
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  background: color-mix(in srgb, var(--bg-primary) 88%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid var(--border);
+}
+
+.mobile-nav__link {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--nav-muted);
+  padding: 0.5rem 0.4rem;
+  transition: color var(--dur-fast) ease;
+}
+
+.mobile-nav__link.is-active {
+  color: var(--accent);
+}
+
+/* =========================================================
+   DRAWER DOŚWIADCZENIA (popup z prawej)
+   ========================================================= */
+.exp-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(4, 15, 15, 0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.exp-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.exp-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 301;
+  width: min(480px, 100vw);
+  height: 100vh;
+  height: 100dvh;
+  padding: 2.5rem 2rem;
+  background: var(--contact-bg);
+  border-left: 1px solid rgba(43, 168, 74, 0.2);
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.45s var(--ease-spring);
+}
+
+.exp-overlay.is-open .exp-drawer {
+  transform: translateX(0);
+}
+
+.exp-drawer__close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  color: var(--text-secondary);
+  font-size: 16px;
+  transition: color var(--dur-fast) ease, border-color var(--dur-fast) ease;
+}
+
+.exp-drawer__close:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.exp-drawer__role {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-top: 1.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.exp-drawer__company {
+  color: var(--text-primary);
+  margin-bottom: 0.2rem;
+}
+
+.exp-drawer__date {
+  font-size: 13px;
+  color: var(--accent);
+}
+
+.exp-drawer__rule {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin-block: 1.5rem;
+}
+
+.exp-drawer__bullets {
+  display: grid;
+  gap: 1rem;
+}
+
+.exp-drawer__bullets li {
+  position: relative;
+  padding-left: 1.5rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.exp-drawer__bullets li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* Mobile: drawer wysuwa się z dołu */
+@media (max-width: 560px) {
+  .exp-drawer {
+    width: 100vw;
+    height: 88vh;
+    height: 88dvh;
+    top: auto;
+    bottom: 0;
+    border-left: none;
+    border-top: 1px solid rgba(43, 168, 74, 0.2);
+    border-radius: 20px 20px 0 0;
+    transform: translateY(100%);
+  }
+  .exp-overlay.is-open .exp-drawer {
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   RESPONSYWNOŚĆ
+   ========================================================= */
+
+/* < 768px: sidebar ukryty, bottom nav */
+@media (max-width: 768px) {
+  body {
+    padding-right: 0;
+    padding-bottom: 64px; /* miejsce na bottom nav */
+  }
+  .sidebar {
+    display: none;
+  }
+  .mobile-nav {
+    display: flex;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .cursor-glow {
+    display: none;
+  }
+}

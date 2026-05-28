@@ -1,0 +1,104 @@
+/* =========================================================
+   Design Tokens — Portfolio
+   Paleta: Ink Black / Forest Green / Medium Jungle / Gunmetal / Porcelain
+   Motyw domyślny: dark
+   ========================================================= */
+
+:root {
+  /* --- Kolory bazowe (niezależne od motywu) --- */
+  --ink-black: #040f0f;
+  --forest-green: #248232;
+  --medium-jungle: #2ba84a;
+  --gunmetal: #2d3a3a;
+  --porcelain: #fcfffc;
+
+  /* --- Typografia --- */
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-mono: "Space Mono", "JetBrains Mono", ui-monospace, "Courier New", monospace;
+  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Skale rozmiarów (clamp = responsywne) */
+  --fs-hero: clamp(4rem, 10vw, 8rem);
+  --fs-section: clamp(3rem, 6vw, 6rem);
+  --fs-h3: clamp(1.5rem, 3vw, 2.25rem);
+  --fs-body: clamp(1rem, 1.05vw, 1.125rem);
+  --fs-small: 0.875rem;
+  --fs-mono-tag: 0.8125rem; /* 13px */
+
+  --lh-body: 1.7;
+  --lh-tight: 1.15;
+  --ls-mono: 0.08em;
+  --ls-wide: 0.1em;
+
+  /* --- Layout --- */
+  --max-width: 1200px;
+  --content-pad: 2rem;
+  --sidebar-w: 88px;
+  --section-gap: clamp(6rem, 12vh, 10rem);
+
+  /* --- Promienie / cienie --- */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* --- Animacje --- */
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 200ms;
+  --dur-mid: 500ms;
+  --dur-slow: 800ms;
+
+  /* --- Warstwy (z-index) --- */
+  --z-sidebar: 50;
+  --z-mobilenav: 60;
+  --z-splash: 100;
+  --z-glow: 1;
+}
+
+/* =========================================================
+   Motyw: DARK (domyślny)
+   ========================================================= */
+:root,
+:root[data-theme="dark"] {
+  --bg-primary: #040f0f;
+  --bg-secondary: #2d3a3a;
+  --bg-elevated: #0a1a1a;
+  --text-primary: #fcfffc;
+  --text-secondary: rgba(252, 255, 252, 0.6);
+  --text-muted: rgba(252, 255, 252, 0.38);
+  --accent: #2ba84a;
+  --accent-hover: #248232;
+  --accent-contrast: #040f0f; /* tekst na tle akcentu */
+  --border: rgba(252, 255, 252, 0.1);
+  --border-strong: rgba(252, 255, 252, 0.18);
+  --card-bg: #2d3a3a;
+  --overlay: rgba(4, 15, 15, 0.75);
+  --glow-color: rgba(43, 168, 74, 0.06);
+  --watermark: rgba(252, 255, 252, 0.04);
+  --nav-muted: rgba(252, 255, 252, 0.35);
+  --contact-bg: #0d1f1f;
+  --date-pill-bg: #2d3a3a;
+}
+
+/* =========================================================
+   Motyw: LIGHT
+   ========================================================= */
+:root[data-theme="light"] {
+  --bg-primary: #fcfffc;
+  --bg-secondary: #f0f4f0;
+  --bg-elevated: #ffffff;
+  --text-primary: #040f0f;
+  --text-secondary: rgba(4, 15, 15, 0.62);
+  --text-muted: rgba(4, 15, 15, 0.42);
+  --accent: #248232;
+  --accent-hover: #2ba84a;
+  --accent-contrast: #fcfffc;
+  --border: rgba(4, 15, 15, 0.12);
+  --border-strong: rgba(4, 15, 15, 0.2);
+  --card-bg: #f0f4f0;
+  --overlay: rgba(4, 15, 15, 0.72);
+  --glow-color: rgba(36, 130, 50, 0.06);
+  --watermark: rgba(4, 15, 15, 0.05);
+  --nav-muted: rgba(4, 15, 15, 0.4);
+  --contact-bg: #e8f0e8;
+  --date-pill-bg: #e2e8e2;
+}
