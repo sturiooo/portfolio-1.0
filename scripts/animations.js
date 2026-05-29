@@ -123,7 +123,6 @@
       });
     }
     stagger(".specialties", ".specialty-card");
-    stagger(".process", ".process__step");
     stagger(".certs", ".cert-item");
     stagger(".contact-form", ".field");
 
@@ -158,6 +157,62 @@
     );
     each(revealEls, function (el) {
       io.observe(el);
+    });
+  })();
+
+  /* =======================================================
+     3b. PROCESS — scroll-driven timeline (pin + scrub)
+     Sekcja przypięta, linia wypełnia się od lewej do prawej,
+     kolejne kroki podświetlają się jeden po drugim.
+     ======================================================= */
+  (function processTimeline() {
+    var section = document.getElementById("process");
+    if (!section) return;
+
+    var fill = section.querySelector(".process-line-fill");
+    var steps = section.querySelectorAll(".process-step");
+    if (!fill || !steps.length) return;
+
+    var isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+    // Mobile / reduced motion / brak GSAP — wszystkie kroki aktywne, linia pełna
+    if (isMobile || reduceMotion || !hasGSAP || !hasST) {
+      fill.style.width = "100%";
+      each(steps, function (s) {
+        s.classList.add("active");
+      });
+      return;
+    }
+
+    var gsap = window.gsap;
+    var ScrollTrigger = window.ScrollTrigger;
+
+    // Pierwszy krok aktywny od startu
+    steps[0].classList.add("active");
+
+    // Pin + scrub: sekcja stoi w miejscu, linia wypełnia się 0 → 100%,
+    // a w trakcie scrubowania włączamy aktywny krok wg progresu.
+    var lastActive = 0;
+    ScrollTrigger.create({
+      trigger: section,
+      start: "top top",
+      end: "+=200%",
+      scrub: 1,
+      pin: true,
+      anticipatePin: 1,
+      onUpdate: function (self) {
+        var p = self.progress; // 0..1
+        // linia
+        fill.style.width = (p * 100).toFixed(2) + "%";
+        // aktywny krok: 0 do ~0.33, 1 do ~0.66, 2 do ~0.99, 3 od ~0.99
+        var idx = Math.min(steps.length - 1, Math.floor(p * steps.length));
+        if (idx !== lastActive) {
+          for (var i = 0; i <= idx; i++) steps[i].classList.add("active");
+          for (var j = idx + 1; j < steps.length; j++)
+            steps[j].classList.remove("active");
+          lastActive = idx;
+        }
+      },
     });
   })();
 

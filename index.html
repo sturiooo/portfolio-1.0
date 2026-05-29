@@ -81,20 +81,80 @@
       </button>
     </div>
 
-    <!-- ============ PRAWY SIDEBAR ============ -->
-    <aside class="sidebar" aria-label="Nawigacja sekcji">
-      <span class="sidebar__progress" id="scrollProgress"></span>
-      <a href="#hero" class="sidebar__brand" aria-label="Powrót na górę">IP</a>
-      <nav class="sidebar__nav">
-        <a href="#about" class="sidebar__link" data-section="about">About</a>
-        <a href="#process" class="sidebar__link" data-section="process">Process</a>
-        <a href="#experience" class="sidebar__link" data-section="experience">Exp</a>
-        <a href="#skills" class="sidebar__link" data-section="skills">Skills</a>
-        <a href="#projects" class="sidebar__link" data-section="projects">Work</a>
-        <a href="#education" class="sidebar__link" data-section="education">Edu</a>
-        <a href="#contact" class="sidebar__link" data-section="contact">Kontakt</a>
-      </nav>
-    </aside>
+    <!-- ============ PRAWY SIDEBAR (pływający pill z ikonami) ============ -->
+    <nav class="sidebar-nav" role="navigation" aria-label="Nawigacja sekcji">
+      <span class="sidebar-progress-track" aria-hidden="true">
+        <span class="sidebar-progress" id="scrollProgress"></span>
+      </span>
+
+      <a href="#about" class="nav-item" data-section="about" aria-label="O mnie">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="7" r="4"/><path d="M5.5 21a8.38 8.38 0 0 1 13 0"/>
+        </svg>
+        <span class="nav-tooltip" data-pl="O mnie" data-en="About">O mnie</span>
+      </a>
+
+      <span class="nav-sep" aria-hidden="true"></span>
+
+      <a href="#process" class="nav-item" data-section="process" aria-label="Proces">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 3v4"/><circle cx="6" cy="10" r="2"/><path d="M6 12v9"/>
+          <path d="M12 3v9"/><circle cx="12" cy="15" r="2"/><path d="M12 17v4"/>
+          <path d="M18 3v4"/><circle cx="18" cy="10" r="2"/><path d="M18 12v9"/>
+        </svg>
+        <span class="nav-tooltip" data-pl="Proces" data-en="Process">Proces</span>
+      </a>
+
+      <span class="nav-sep" aria-hidden="true"></span>
+
+      <a href="#experience" class="nav-item" data-section="experience" aria-label="Doświadczenie">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="7" width="20" height="14" rx="2"/>
+          <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+          <line x1="12" y1="12" x2="12" y2="12.01"/>
+        </svg>
+        <span class="nav-tooltip" data-pl="Doświadczenie" data-en="Experience">Doświadczenie</span>
+      </a>
+
+      <span class="nav-sep" aria-hidden="true"></span>
+
+      <a href="#skills" class="nav-item" data-section="skills" aria-label="Umiejętności">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+        </svg>
+        <span class="nav-tooltip" data-pl="Umiejętności" data-en="Skills">Umiejętności</span>
+      </a>
+
+      <span class="nav-sep" aria-hidden="true"></span>
+
+      <a href="#projects" class="nav-item" data-section="projects" aria-label="Projekty">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+        </svg>
+        <span class="nav-tooltip" data-pl="Projekty" data-en="Projects">Projekty</span>
+      </a>
+
+      <span class="nav-sep" aria-hidden="true"></span>
+
+      <a href="#education" class="nav-item" data-section="education" aria-label="Edukacja">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+          <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/>
+        </svg>
+        <span class="nav-tooltip" data-pl="Edukacja" data-en="Education">Edukacja</span>
+      </a>
+
+      <span class="nav-sep" aria-hidden="true"></span>
+
+      <a href="#contact" class="nav-item" data-section="contact" aria-label="Kontakt">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+        <span class="nav-tooltip" data-pl="Kontakt" data-en="Contact">Kontakt</span>
+      </a>
+    </nav>
 
     <!-- ============ MAIN ============ -->
     <main>
@@ -193,32 +253,41 @@
             <h2 class="section-head__title section-heading" data-pl="Jak wygląda współpraca?" data-en="How does it work?">Jak wygląda współpraca?</h2>
           </header>
 
-          <ol class="process">
-            <li class="process__step">
-              <span class="process__node" aria-hidden="true"></span>
-              <span class="process__num mono">01</span>
-              <h3 class="process__title" data-pl="Poznaję markę" data-en="I learn the brand">Poznaję markę</h3>
-              <p class="process__desc" data-pl="Zanim zacznę projektować, rozumiem klienta, jego cel i grupę docelową." data-en="Before designing, I understand the client, their goal and target audience.">Zanim zacznę projektować, rozumiem klienta, jego cel i grupę docelową.</p>
-            </li>
-            <li class="process__step">
-              <span class="process__node" aria-hidden="true"></span>
-              <span class="process__num mono">02</span>
-              <h3 class="process__title" data-pl="Planuję" data-en="I plan">Planuję</h3>
-              <p class="process__desc" data-pl="Szkicuję jak sklep ma wyglądać i jak po nim poruszać się klientowi." data-en="I sketch how the store should look and how the customer should navigate it.">Szkicuję jak sklep ma wyglądać i jak po nim poruszać się klientowi.</p>
-            </li>
-            <li class="process__step">
-              <span class="process__node" aria-hidden="true"></span>
-              <span class="process__num mono">03</span>
-              <h3 class="process__title" data-pl="Buduję" data-en="I build">Buduję</h3>
-              <p class="process__desc" data-pl="Krok po kroku, każdy detal ma sens." data-en="Step by step, every detail has a purpose.">Krok po kroku, każdy detal ma sens.</p>
-            </li>
-            <li class="process__step">
-              <span class="process__node" aria-hidden="true"></span>
-              <span class="process__num mono">04</span>
-              <h3 class="process__title" data-pl="Oddaję" data-en="I deliver">Oddaję</h3>
-              <p class="process__desc" data-pl="Gotowy sklep który działa od pierwszego dnia." data-en="A finished store that works from day one.">Gotowy sklep który działa od pierwszego dnia.</p>
-            </li>
-          </ol>
+          <div class="process-timeline">
+            <div class="process-line-track">
+              <div class="process-line-fill"></div>
+            </div>
+
+            <div class="process-steps">
+              <div class="process-step" data-index="0">
+                <span class="step-dot" aria-hidden="true"></span>
+                <span class="step-num mono">01</span>
+                <h3 class="step-title" data-pl="Poznaję markę" data-en="I learn the brand">Poznaję markę</h3>
+                <p class="step-desc" data-pl="Zanim zacznę projektować, rozumiem klienta, jego cel i grupę docelową." data-en="Before designing, I understand the client, their goal and target audience.">Zanim zacznę projektować, rozumiem klienta, jego cel i grupę docelową.</p>
+              </div>
+
+              <div class="process-step" data-index="1">
+                <span class="step-dot" aria-hidden="true"></span>
+                <span class="step-num mono">02</span>
+                <h3 class="step-title" data-pl="Planuję" data-en="I plan">Planuję</h3>
+                <p class="step-desc" data-pl="Szkicuję jak sklep ma wyglądać i jak po nim poruszać się klientowi." data-en="I sketch how the store should look and how the customer should navigate it.">Szkicuję jak sklep ma wyglądać i jak po nim poruszać się klientowi.</p>
+              </div>
+
+              <div class="process-step" data-index="2">
+                <span class="step-dot" aria-hidden="true"></span>
+                <span class="step-num mono">03</span>
+                <h3 class="step-title" data-pl="Buduję" data-en="I build">Buduję</h3>
+                <p class="step-desc" data-pl="Krok po kroku, każdy detal ma sens." data-en="Step by step, every detail has a purpose.">Krok po kroku, każdy detal ma sens.</p>
+              </div>
+
+              <div class="process-step" data-index="3">
+                <span class="step-dot" aria-hidden="true"></span>
+                <span class="step-num mono">04</span>
+                <h3 class="step-title" data-pl="Oddaję" data-en="I deliver">Oddaję</h3>
+                <p class="step-desc" data-pl="Gotowy sklep który działa od pierwszego dnia." data-en="A finished store that works from day one.">Gotowy sklep który działa od pierwszego dnia.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -243,7 +312,13 @@
                   <span class="timeline__company" data-pl="Adtrip — Agencja Performance dla E-commerce" data-en="Adtrip — Performance E-commerce Agency">Adtrip — Agencja Performance dla E-commerce</span>
                   <span class="timeline__loc mono" data-pl="Poznań" data-en="Poznań">Poznań</span>
                 </div>
-                <span class="timeline__date mono" data-pl="sty 2026 – Obecnie" data-en="Jan 2026 – Present">sty 2026 – Obecnie</span>
+                <div class="timeline__meta">
+                  <span class="timeline__date mono" data-pl="sty 2026 – Obecnie" data-en="Jan 2026 – Present">sty 2026 – Obecnie</span>
+                  <span class="timeline__hint mono" aria-hidden="true">
+                    <span class="timeline__hint-text" data-pl="szczegóły" data-en="details">szczegóły</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                  </span>
+                </div>
               </div>
               <ul class="exp-bullets" hidden>
                 <li data-pl="Realizuję kompleksowe wdrożenia i rozwój sklepów na Shopify — od pierwszych warsztatów z klientem po uruchomienie." data-en="Full Shopify store implementations — from initial client workshops to launch.">Realizuję kompleksowe wdrożenia i rozwój sklepów na Shopify — od pierwszych warsztatów z klientem po uruchomienie.</li>
@@ -264,7 +339,13 @@
                   <span class="timeline__company" data-pl="Kaem Sp. z o.o." data-en="Kaem Sp. z o.o.">Kaem Sp. z o.o.</span>
                   <span class="timeline__loc mono" data-pl="Poznań" data-en="Poznań">Poznań</span>
                 </div>
-                <span class="timeline__date mono" data-pl="mar 2025 – mar 2026" data-en="Mar 2025 – Mar 2026">mar 2025 – mar 2026</span>
+                <div class="timeline__meta">
+                  <span class="timeline__date mono" data-pl="mar 2025 – mar 2026" data-en="Mar 2025 – Mar 2026">mar 2025 – mar 2026</span>
+                  <span class="timeline__hint mono" aria-hidden="true">
+                    <span class="timeline__hint-text" data-pl="szczegóły" data-en="details">szczegóły</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                  </span>
+                </div>
               </div>
               <ul class="exp-bullets" hidden>
                 <li data-pl="Awans z młodszego specjalisty do specjalisty w ciągu 9 miesięcy." data-en="Promoted from junior to specialist in 9 months.">Awans z młodszego specjalisty do specjalisty w ciągu 9 miesięcy.</li>
@@ -285,7 +366,13 @@
                   <span class="timeline__company" data-pl="Freelancer" data-en="Freelancer">Freelancer</span>
                   <span class="timeline__loc mono" data-pl="Poznań" data-en="Poznań">Poznań</span>
                 </div>
-                <span class="timeline__date mono" data-pl="2018 – Obecnie" data-en="2018 – Present">2018 – Obecnie</span>
+                <div class="timeline__meta">
+                  <span class="timeline__date mono" data-pl="2018 – Obecnie" data-en="2018 – Present">2018 – Obecnie</span>
+                  <span class="timeline__hint mono" aria-hidden="true">
+                    <span class="timeline__hint-text" data-pl="szczegóły" data-en="details">szczegóły</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                  </span>
+                </div>
               </div>
               <ul class="exp-bullets" hidden>
                 <li data-pl="Zbudowałem kilkanaście sklepów na Shopify dla klientów z branży pet, budowlanej, fashion i FMCG." data-en="Built 10+ Shopify stores for clients in pet, construction, fashion and FMCG industries.">Zbudowałem kilkanaście sklepów na Shopify dla klientów z branży pet, budowlanej, fashion i FMCG.</li>
@@ -324,7 +411,7 @@
           <div class="skills-grid" id="skillsGrid">
             <!-- KLUCZOWE / FEATURED -->
             <article class="skill-card" data-cat="featured">
-              <i class="ti ti-brand-shopify skill-card__icon" aria-hidden="true"></i>
+              <i class="ti ti-shopping-bag skill-card__icon" aria-hidden="true"></i>
               <h3 class="skill-card__title" data-pl="Shopify Development" data-en="Shopify Development">Shopify Development</h3>
               <p class="skill-card__desc" data-pl="Liquid, szablony, Shopify Plus, headless" data-en="Liquid, themes, Shopify Plus, headless">Liquid, szablony, Shopify Plus, headless</p>
             </article>

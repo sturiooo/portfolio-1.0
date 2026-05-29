@@ -78,9 +78,10 @@
 
   Array.prototype.forEach.call(items, function (item) {
     var role = item.querySelector(".timeline__role--btn");
-    if (!role) return;
-    role.addEventListener("click", function () {
-      open(item, role);
+    item.addEventListener("click", function (e) {
+      // Klik w role-button odpala open(); klik gdziekolwiek indziej w wpisie też.
+      if (e.target.closest("a")) return;
+      open(item, role || item);
     });
   });
 

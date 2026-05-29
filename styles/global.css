@@ -48,8 +48,6 @@ body {
   transition: background-color var(--dur-fast) ease, color var(--dur-fast) ease;
   /* clip (nie hidden) — nie tworzy kontekstu scrolla, nie psuje position:sticky */
   overflow-x: clip;
-  /* Miejsce na sidebar po prawej */
-  padding-right: var(--sidebar-w);
 }
 
 img {
@@ -70,7 +68,8 @@ button {
   color: inherit;
 }
 
-ul {
+ul,
+ol {
   list-style: none;
 }
 
@@ -117,76 +116,152 @@ main {
 /* Nagłówek sekcji (kicker + tytuł) — style w sections.css */
 
 /* =========================================================
-   PRAWY SIDEBAR (element charakterystyczny) — tylko tekst
+   PRAWY SIDEBAR — pływający pill z ikonami
    ========================================================= */
-.sidebar {
+.sidebar-nav {
   position: fixed;
-  top: 0;
-  right: 0;
-  width: var(--sidebar-w);
-  height: 100vh;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: var(--z-sidebar);
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-block: 1.5rem;
-  background: color-mix(in srgb, var(--bg-primary) 75%, transparent);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-left: 1px solid var(--border);
+  gap: 0.25rem;
+
+  width: 52px;
+  padding: 1rem 0;
+  border-radius: 999px;
+  background: rgba(13, 31, 31, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(43, 168, 74, 0.18);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+  /* overflow:visible — żeby tooltipy mogły wyjść poza pill */
 }
 
-/* Wskaźnik postępu scrollu — cienka linia na lewej krawędzi */
-.sidebar__progress {
+/* Track progressu — wrapper z overflow:hidden + rounded, żeby pasek
+   był ładnie obcięty przy zaokrąglonych krawędziach pilla. */
+.sidebar-progress-track {
   position: absolute;
-  top: 0;
+  top: 10px;
+  bottom: 10px;
   left: 0;
   width: 2px;
+  overflow: hidden;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.sidebar-progress {
+  display: block;
+  width: 100%;
   height: 0%;
-  background: var(--accent);
+  background: linear-gradient(to bottom, var(--accent), rgba(43, 168, 74, 0.3));
   transition: height 80ms linear;
 }
 
-/* Logo / inicjały na górze */
-.sidebar__brand {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: var(--text-primary);
+/* Separator między ikonami */
+.nav-sep {
+  width: 22px;
+  height: 1px;
+  background: rgba(252, 255, 252, 0.07);
+  flex-shrink: 0;
 }
 
-/* Lista pozycji nav — wyśrodkowana w pionie */
-.sidebar__nav {
-  margin: auto 0;
+/* Link z ikoną */
+.nav-item {
+  position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: rgba(252, 255, 252, 0.4);
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: color 0.2s ease, background 0.2s ease;
 }
 
-/* Etykieta tekstowa — pozioma, wyśrodkowana */
-.sidebar__link {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: 400;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  text-align: center;
-  line-height: 1.2;
-  color: var(--nav-muted);
-  padding: 0.6rem 0.4rem;
-  transition: color var(--dur-fast) var(--ease-spring),
-    transform var(--dur-fast) var(--ease-spring);
+.nav-item svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  display: block;
 }
 
-.sidebar__link:hover {
-  color: var(--text-primary);
-  transform: translateX(-2px);
+.nav-item:hover {
+  color: rgba(252, 255, 252, 0.9);
+  background: rgba(252, 255, 252, 0.05);
 }
 
-.sidebar__link.is-active {
+.nav-item.is-active {
   color: var(--accent);
-  font-weight: 700;
+  background: transparent;
+}
+
+/* Mała zielona kropka przy aktywnej ikonie */
+.nav-item.is-active::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* Tooltip po lewej stronie ikony, pojawia się przy hover */
+.nav-tooltip {
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  background: rgba(13, 31, 31, 0.92);
+  border: 1px solid rgba(43, 168, 74, 0.22);
+  border-radius: 6px;
+  padding: 0.3rem 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: rgba(252, 255, 252, 0.9);
+  white-space: nowrap;
+  pointer-events: none;
+
+  opacity: 0;
+  transform: translateY(-50%) translateX(6px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.nav-item:hover .nav-tooltip,
+.nav-item:focus-visible .nav-tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* Light theme — jaśniejszy pill, ciemny tooltip nadal czytelny */
+[data-theme="light"] .sidebar-nav {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(43, 168, 74, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+[data-theme="light"] .nav-item {
+  color: rgba(20, 30, 30, 0.45);
+}
+[data-theme="light"] .nav-item:hover {
+  color: rgba(20, 30, 30, 0.95);
+  background: rgba(20, 30, 30, 0.05);
+}
+[data-theme="light"] .nav-sep {
+  background: rgba(20, 30, 30, 0.08);
+}
+[data-theme="light"] .nav-tooltip {
+  background: rgba(255, 255, 255, 0.95);
+  color: rgba(20, 30, 30, 0.9);
+  border-color: rgba(43, 168, 74, 0.3);
 }
 
 /* =========================================================
@@ -195,7 +270,7 @@ main {
 .top-controls {
   position: fixed;
   top: 1.25rem;
-  right: calc(var(--sidebar-w) + 0.75rem);
+  right: 1.25rem;
   z-index: var(--z-mobilenav);
   display: flex;
   align-items: center;
@@ -503,10 +578,9 @@ main {
 /* < 768px: sidebar ukryty, bottom nav */
 @media (max-width: 768px) {
   body {
-    padding-right: 0;
     padding-bottom: 64px; /* miejsce na bottom nav */
   }
-  .sidebar {
+  .sidebar-nav {
     display: none;
   }
   .mobile-nav {
